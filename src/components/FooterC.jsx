@@ -2,8 +2,8 @@ export default function FooterC() {
   return (
     <footer>
       <div className="footer-content text-white">
-        <p>© 2025 BoolFlix. All rights reserved.</p>
-        <p>Created by Davide Crriscuolo</p>
+        <span className="mx-2">© 2025 BoolFlix. All rights reserved.</span>
+        <span>Created by Davide Crriscuolo</span>
       </div>
     </footer>
   );

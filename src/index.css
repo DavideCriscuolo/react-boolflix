@@ -8,3 +8,7 @@
 .footer-content {
   background-color: #363333;
 }
+
+main {
+  min-height: 1200px;
+}

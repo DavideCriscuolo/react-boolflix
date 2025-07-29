@@ -52,104 +52,11 @@ la poster_path con w342)
 aggiuntive già prese nei punti precedenti più la overview 
 
 */
-import StarRatings from "react-star-ratings"; // libreria per le stelline
-import Flag from "react-world-flags"; // libreria per le bandiere
-import { useState } from "react";
-import HeaderC from "./components/HeaderC";
-import FooterC from "./components/FooterC";
+import Home from "./pages/Home";
 function App() {
-  const api_key = import.meta.env.VITE_API_KEY;
-  const [nameFilm, setNameFilm] = useState("");
-  const [film, setFilm] = useState([]);
-
-  const [serTv, setSerTv] = useState([]);
-  const [nameTv, setNameTv] = useState("");
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
-
-  const urlTv = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${nameTv}`;
-
-  function handleChange(e) {
-    setNameFilm(e.target.value);
-    console.log(nameFilm);
-    setNameTv(e.target.value);
-    console.log(serTv);
-  }
-
-  function gnrFilmStv(e) {
-    e.preventDefault();
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.results);
-        setFilm(data.results);
-      });
-
-    fetch(urlTv)
-      .then((res) => res.json())
-      .then((data) => {
-        setSerTv(data.results);
-      });
-  }
-
   return (
     <>
-      <HeaderC></HeaderC>
-      <form onSubmit={gnrFilmStv} action="">
-        <label htmlFor="">Cerca Film</label>
-        <input onChange={handleChange} value={(nameFilm, nameTv)} type="text" />
-        <button type="submit">Cerca</button>
-      </form>
-
-      {film.map((film) => {
-        return (
-          <ul key={film.id}>
-            <li>Titolo: {film.title} </li>
-            <li> Titolo Originale:{film.original_title}</li>{" "}
-            <Flag
-              code={film.original_language.toUpperCase()}
-              style={{ width: 30, height: 20 }}
-            ></Flag>
-            <StarRatings
-              numberOfStars={5}
-              rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
-              starRatedColor="gold"
-              starDimension="24px"
-              starSpacing="2px"
-              name="rating"
-            >
-              Voto:
-            </StarRatings>{" "}
-            <li>
-              <img
-                src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
-                alt=""
-              />
-            </li>
-          </ul>
-        );
-      })}
-      <div>
-        <h1>Serie TV </h1>
-        {serTv.map((serTv) => {
-          return (
-            <ul key={serTv.id}>
-              <li>Titolo: {serTv.name} </li>
-              <Flag
-                code={serTv.original_language.toUpperCase()}
-                style={{ width: 30, height: 20 }}
-              ></Flag>
-              <li>Voto: {serTv.vote_average}</li>
-              <li>
-                <img
-                  src={`https://image.tmdb.org/t/p/w342/${serTv.poster_path}`}
-                  alt=""
-                />
-              </li>
-            </ul>
-          );
-        })}
-      </div>
-      <FooterC></FooterC>
+      <Home></Home>
     </>
   );
 }
