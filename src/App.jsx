@@ -34,11 +34,21 @@ function App() {
   const [nameFilm, setNameFilm] = useState("");
   const [film, setFilm] = useState([]);
 
+  const [serTv, setSerTv] = useState([]);
+  const [nameTv, setNameTv] = useState("");
+
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
+
+  const urlTv = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${nameTv}`;
 
   function handleChange(e) {
     setNameFilm(e.target.value);
     console.log(nameFilm);
+  }
+
+  function handleChangeTv(e) {
+    setNameTv(e.target.value);
+    console.log(serTv);
   }
 
   function gnrFilm(e) {
@@ -50,12 +60,27 @@ function App() {
         setFilm(data.results);
       });
   }
-  // useEffect(gnrFilm, []);
+
+  function gnrTV(e) {
+    e.preventDefault();
+    fetch(urlTv)
+      .then((res) => res.json())
+      .then((data) => {
+        setSerTv(data.results);
+      });
+  }
 
   return (
     <>
       <form onSubmit={gnrFilm} action="">
+        <label htmlFor="">Cerca Film</label>
         <input onChange={handleChange} value={nameFilm} type="text" />
+        <button type="submit">Cerca</button>
+      </form>
+      {/* form per serie tv */}
+      <form onSubmit={gnrTV} action="">
+        <label htmlFor="">Cerca Serie Tv</label>
+        <input onChange={handleChangeTv} value={nameTv} type="text" />
         <button type="submit">Cerca</button>
       </form>
 
@@ -69,6 +94,19 @@ function App() {
               style={{ width: 30, height: 20 }}
             ></Flag>
             <li>Voto: {film.vote_average}</li>
+          </ul>
+        );
+      })}
+
+      {serTv.map((serTv) => {
+        return (
+          <ul key={serTv.id}>
+            <li>Titolo: {serTv.name} </li>
+            <Flag
+              code={serTv.original_language.toUpperCase()}
+              style={{ width: 30, height: 20 }}
+            ></Flag>
+            <li>Voto: {serTv.vote_average}</li>
           </ul>
         );
       })}
