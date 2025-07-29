@@ -8,10 +8,41 @@ film trovato:
 3.  Lingua 
 4.  Voto  */
 
-import "./App.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
-  return <></>;
+  const api_key = import.meta.env.VITE_API_KEY;
+
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=Matrix`;
+
+  const [film, setFilm] = useState([]);
+
+  function gnrFilm(e) {
+    e.preventDefault();
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.results);
+        setFilm(data.results);
+      });
+  }
+  // useEffect(gnrFilm, []);
+
+  return (
+    <>
+      <form onSubmit={gnrFilm} action="">
+        <input type="text" />
+        <button type="submit">Cerca</button>
+      </form>
+
+      <ul>
+        {film.map((film) => {
+          return <li key={film.id}>{film.title}</li>;
+        })}
+      </ul>
+    </>
+  );
 }
 
 export default App;
