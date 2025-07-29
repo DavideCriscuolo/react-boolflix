@@ -22,11 +22,30 @@ Qui un esempio di chiamata per le serie tv:
 https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d&language=it_IT&query=s
 crubs 
  
-
+Milestone 3: 
+In questa milestone come prima cosa aggiungiamo la copertina del film o della serie 
+al nostro elenco. Ci viene passata dall’API solo la parte finale dell’URL, questo 
+perché poi potremo generare da quella porzione di URL tante dimensioni diverse. 
+Dovremo prendere quindi l’URL base delle immagini di TMDB: 
+https://image.tmdb.org/t/p/ per poi aggiungere la dimensione che vogliamo generare 
+(troviamo tutte le dimensioni possibili a questo link: 
+https://www.themoviedb.org/talk/53c11d4ec3a3684cf4006400) per poi aggiungere la 
+parte finale dell’URL passata dall’API. 
+Esempio di URL: 
+https://image.tmdb.org/t/p/w342/wwemzKWzjKYJFfCeiB57q3r4Bcm.png 
+ 
+Trasformiamo poi il voto da 1 a 10 decimale in un numero intero da 1 a 5, così da 
+permetterci di stampare a schermo un numero di stelle piene che vanno da 1 a 5, 
+lasciando le restanti vuote (troviamo le icone in FontAwesome). 
+Arrotondiamo sempre per eccesso all’unità successiva, non gestiamo icone mezze 
+piene (o mezze vuote :P) 
+ 
+ 
 
 
 */
-import Flag from "react-world-flags"; // per le bandiere
+
+import Flag from "react-world-flags"; // libreria per le bandiere
 import { use, useEffect, useState } from "react";
 
 function App() {
@@ -36,7 +55,6 @@ function App() {
 
   const [serTv, setSerTv] = useState([]);
   const [nameTv, setNameTv] = useState("");
-
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
 
   const urlTv = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${nameTv}`;
@@ -55,11 +73,12 @@ function App() {
       .then((data) => {
         console.log(data.results);
         setFilm(data.results);
-        fetch(urlTv)
-          .then((res) => res.json())
-          .then((data) => {
-            setSerTv(data.results);
-          });
+      });
+
+    fetch(urlTv)
+      .then((res) => res.json())
+      .then((data) => {
+        setSerTv(data.results);
       });
   }
 
@@ -80,7 +99,22 @@ function App() {
               code={film.original_language.toUpperCase()}
               style={{ width: 30, height: 20 }}
             ></Flag>
-            <li>Voto: {film.vote_average}</li>
+            <ReactStars
+              count={5}
+              value={film.vote_average / 2}
+              size={24}
+              edit={false} // disabilita modifiche
+              isHalf={true}
+              activeColor="#ffd700"
+            >
+              Voto:
+            </ReactStars>{" "}
+            <li>
+              <img
+                src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
+                alt=""
+              />
+            </li>
           </ul>
         );
       })}
@@ -95,6 +129,12 @@ function App() {
                 style={{ width: 30, height: 20 }}
               ></Flag>
               <li>Voto: {serTv.vote_average}</li>
+              <li>
+                <img
+                  src={`https://image.tmdb.org/t/p/w342/${serTv.poster_path}`}
+                  alt=""
+                />
+              </li>
             </ul>
           );
         })}

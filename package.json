@@ -13,6 +13,7 @@
     "axios": "^1.11.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-rating-stars-component": "^2.2.0",
     "react-world-flags": "^1.6.0"
   },
   "devDependencies": {
