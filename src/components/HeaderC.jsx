@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function HeaderC(prop) {
   return (
@@ -6,8 +6,8 @@ export default function HeaderC(prop) {
       <header>
         <nav className="navbar navbar-expand-lg bg-nav p-3 gap-3">
           <div className="container-fluid ">
-            <a href="">
-              <img className="logo" src="./logo.png" alt="Logo BoolFlix" />
+            <a href="#">
+              <h1>BOOLFLIX</h1>
             </a>
           </div>
           <form className="d-flex" onSubmit={prop.gnrFilmStv}>
