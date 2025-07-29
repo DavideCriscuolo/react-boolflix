@@ -19,6 +19,7 @@ export default function Main() {
     setNameTv(e.target.value);
     console.log(serTv);
   }
+  const [isEnter, setIsEnter] = useState(null);
 
   function gnrFilmStv(e) {
     e.preventDefault();
@@ -46,22 +47,28 @@ export default function Main() {
       ></HeaderC>
       <main>
         <div className="container p-5"></div>
-        <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-row-cols-xxl-6 p-5">
+        <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-row-cols-xxl-6  w-100">
           {film.map((film) => {
             return (
               <div key={film.id} className="col p-5 ">
-                <h4>Film</h4>
-                <div className="card mb-3 h-100 p-3 justify-content-center">
+                <h4 className="">Film</h4>
+                <div className="card border-0 mb-3 h-100 p-3 justify-content-center">
                   <div className="row g-0">
                     <div className="col-md-6">
                       <img
                         src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
                         className="img-fluid rounded"
                         alt="Card title"
+                        onMouseEnter={() => setIsEnter(film.id)}
+                        onMouseLeave={() => setIsEnter(null)}
                       />
                     </div>
                     <div className="col-md-6">
-                      <div className="card-body">
+                      <div
+                        className={`card-body ${
+                          isEnter === film.id && "enter"
+                        }`}
+                      >
                         <h5 className="card-title">{film.original_title}</h5>
                         <p className="card-text">
                           Titolo Originale: {film.original_title}
@@ -93,12 +100,12 @@ export default function Main() {
         </div>
 
         <div>
-          <div className=" row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-row-cols-xxl-6 p-5">
+          <div className=" row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-row-cols-xxl-6 p-2 w-100">
             {serTv.map((stv) => {
               return (
                 <div key={stv.id} className="col p-5 ">
-                  <h4>Serie TV </h4>
-                  <div className="card mb-3 h-100 p-3 justify-content-center">
+                  <h4 className="">Serie TV </h4>
+                  <div className="card border-0 mb-3 h-100 p-3 justify-content-center">
                     <div className="row g-0">
                       <div className="col-md-6">
                         <img
