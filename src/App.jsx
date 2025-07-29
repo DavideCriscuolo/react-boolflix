@@ -9,14 +9,19 @@ film trovato:
 4.  Voto  */
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 function App() {
   const api_key = import.meta.env.VITE_API_KEY;
-
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=Matrix`;
-
+  const [nameFilm, setNameFilm] = useState("");
   const [film, setFilm] = useState([]);
+
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
+
+  function handleChange(e) {
+    setNameFilm(e.target.value);
+    console.log(nameFilm);
+  }
 
   function gnrFilm(e) {
     e.preventDefault();
@@ -32,7 +37,7 @@ function App() {
   return (
     <>
       <form onSubmit={gnrFilm} action="">
-        <input type="text" />
+        <input onChange={handleChange} value={nameFilm} type="text" />
         <button type="submit">Cerca</button>
       </form>
 
