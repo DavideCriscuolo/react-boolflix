@@ -12,3 +12,6 @@
 main {
   min-height: 1200px;
 }
+.card {
+  max-width: 540px;
+}

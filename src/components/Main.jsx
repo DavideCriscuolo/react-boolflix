@@ -51,32 +51,40 @@ export default function Main() {
             return (
               <div key={film.id} className="col p-5 ">
                 <h4>Film</h4>
-                <div className="card h-100">
-                  <img
-                    className="card-img-top ratio ratio-1x1"
-                    src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
-                    alt="image Film"
-                  />
-                  <div className="card-body">
-                    <h4 className="card-title">{film.original_title}</h4>
-                    <p className="card-text">
-                      Titolo Originale: {film.original_title}
-                    </p>
-                    <Flag
-                      code={film.original_language.toUpperCase()}
-                      style={{ width: 30, height: 20 }}
-                    ></Flag>
-                    <p> Lingua: {film.original_language.toUpperCase()}</p>
-                    <StarRatings
-                      numberOfStars={5}
-                      rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
-                      starRatedColor="gold"
-                      starDimension="24px"
-                      starSpacing="2px"
-                      name="rating"
-                    >
-                      Voto:
-                    </StarRatings>
+                <div className="card mb-3 h-100 p-3 justify-content-center">
+                  <div className="row g-0">
+                    <div className="col-md-6">
+                      <img
+                        src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
+                        className="img-fluid rounded"
+                        alt="Card title"
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <div className="card-body">
+                        <h5 className="card-title">{film.original_title}</h5>
+                        <p className="card-text">
+                          Titolo Originale: {film.original_title}
+                        </p>
+                        <p className="card-text">
+                          <Flag
+                            code={film.original_language.toUpperCase()}
+                            style={{ width: 30, height: 20 }}
+                          ></Flag>
+                        </p>
+                        <p> Lingua: {film.original_language.toUpperCase()}</p>
+                        <StarRatings
+                          numberOfStars={5}
+                          rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
+                          starRatedColor="gold"
+                          starDimension="24px"
+                          starSpacing="2px"
+                          name="rating"
+                        >
+                          Voto:
+                        </StarRatings>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -90,29 +98,37 @@ export default function Main() {
               return (
                 <div key={stv.id} className="col p-5 ">
                   <h4>Serie TV </h4>
-                  <div className="card h-100">
-                    <img
-                      className="card-img-top ratio ratio-1x1"
-                      src={`https://image.tmdb.org/t/p/w342/${stv.poster_path}`}
-                      alt="image Film"
-                    />
-                    <div className="card-body">
-                      <h4 className="card-title">{stv.name}</h4>
-                      <Flag
-                        code={stv.original_language.toUpperCase()}
-                        style={{ width: 30, height: 20 }}
-                      ></Flag>
-                      <p> Lingua: {stv.original_language.toUpperCase()}</p>
-                      <StarRatings
-                        numberOfStars={5}
-                        rating={Math.round(stv.vote_average / 2)} //per arrotondare e non avere mezze stelle
-                        starRatedColor="gold"
-                        starDimension="24px"
-                        starSpacing="2px"
-                        name="rating"
-                      >
-                        Voto:
-                      </StarRatings>
+                  <div className="card mb-3 h-100 p-3 justify-content-center">
+                    <div className="row g-0">
+                      <div className="col-md-6">
+                        <img
+                          src={`https://image.tmdb.org/t/p/w342/${stv.poster_path}`}
+                          className="img-fluid rounded"
+                          alt="Card title"
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <div className="card-body">
+                          <h5 className="card-title">{stv.name}</h5>
+                          <p className="card-text">
+                            <Flag
+                              code={stv.original_language.toUpperCase()}
+                              style={{ width: 30, height: 20 }}
+                            ></Flag>
+                          </p>
+                          <p> Lingua: {stv.original_language.toUpperCase()}</p>
+                          <StarRatings
+                            numberOfStars={5}
+                            rating={Math.round(stv.vote_average / 2)} //per arrotondare e non avere mezze stelle
+                            starRatedColor="gold"
+                            starDimension="24px"
+                            starSpacing="2px"
+                            name="rating"
+                          >
+                            Voto:
+                          </StarRatings>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
