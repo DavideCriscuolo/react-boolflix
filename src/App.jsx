@@ -40,14 +40,23 @@ lasciando le restanti vuote (troviamo le icone in FontAwesome).
 Arrotondiamo sempre per eccesso all’unità successiva, non gestiamo icone mezze 
 piene (o mezze vuote :P) 
  
- 
-
+  
+Milestone 4:
+Trasformiamo quello che abbiamo fatto fino ad ora in una vera e propria webapp, 
+creando un layout completo simil-Netflix: 
+●  Un header che contiene logo e search bar 
+●  Dopo aver ricercato qualcosa nella searchbar, i risultati appaiono sotto forma 
+di “card” in cui lo sfondo è rappresentato dall’immagine di copertina (consiglio 
+la poster_path con w342) 
+●  Andando con il mouse sopra una card (on hover), appaiono le informazioni 
+aggiuntive già prese nei punti precedenti più la overview 
 
 */
 import StarRatings from "react-star-ratings"; // libreria per le stelline
 import Flag from "react-world-flags"; // libreria per le bandiere
-import { use, useEffect, useState } from "react";
-
+import { useState } from "react";
+import HeaderC from "./components/HeaderC";
+import FooterC from "./components/FooterC";
 function App() {
   const api_key = import.meta.env.VITE_API_KEY;
   const [nameFilm, setNameFilm] = useState("");
@@ -84,6 +93,7 @@ function App() {
 
   return (
     <>
+      <HeaderC></HeaderC>
       <form onSubmit={gnrFilmStv} action="">
         <label htmlFor="">Cerca Film</label>
         <input onChange={handleChange} value={(nameFilm, nameTv)} type="text" />
@@ -139,6 +149,7 @@ function App() {
           );
         })}
       </div>
+      <FooterC></FooterC>
     </>
   );
 }
