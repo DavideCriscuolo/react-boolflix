@@ -44,43 +44,30 @@ function App() {
   function handleChange(e) {
     setNameFilm(e.target.value);
     console.log(nameFilm);
-  }
-
-  function handleChangeTv(e) {
     setNameTv(e.target.value);
     console.log(serTv);
   }
 
-  function gnrFilm(e) {
+  function gnrFilmStv(e) {
     e.preventDefault();
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.results);
         setFilm(data.results);
-      });
-  }
-
-  function gnrTV(e) {
-    e.preventDefault();
-    fetch(urlTv)
-      .then((res) => res.json())
-      .then((data) => {
-        setSerTv(data.results);
+        fetch(urlTv)
+          .then((res) => res.json())
+          .then((data) => {
+            setSerTv(data.results);
+          });
       });
   }
 
   return (
     <>
-      <form onSubmit={gnrFilm} action="">
+      <form onSubmit={gnrFilmStv} action="">
         <label htmlFor="">Cerca Film</label>
-        <input onChange={handleChange} value={nameFilm} type="text" />
-        <button type="submit">Cerca</button>
-      </form>
-      {/* form per serie tv */}
-      <form onSubmit={gnrTV} action="">
-        <label htmlFor="">Cerca Serie Tv</label>
-        <input onChange={handleChangeTv} value={nameTv} type="text" />
+        <input onChange={handleChange} value={(nameFilm, nameTv)} type="text" />
         <button type="submit">Cerca</button>
       </form>
 
@@ -97,19 +84,21 @@ function App() {
           </ul>
         );
       })}
-
-      {serTv.map((serTv) => {
-        return (
-          <ul key={serTv.id}>
-            <li>Titolo: {serTv.name} </li>
-            <Flag
-              code={serTv.original_language.toUpperCase()}
-              style={{ width: 30, height: 20 }}
-            ></Flag>
-            <li>Voto: {serTv.vote_average}</li>
-          </ul>
-        );
-      })}
+      <div>
+        <h1>Serie TV </h1>
+        {serTv.map((serTv) => {
+          return (
+            <ul key={serTv.id}>
+              <li>Titolo: {serTv.name} </li>
+              <Flag
+                code={serTv.original_language.toUpperCase()}
+                style={{ width: 30, height: 20 }}
+              ></Flag>
+              <li>Voto: {serTv.vote_average}</li>
+            </ul>
+          );
+        })}
+      </div>
     </>
   );
 }
