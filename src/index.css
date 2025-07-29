@@ -1,6 +1,3 @@
-html {
-}
-
 .logo {
   max-width: 80px;
 }
@@ -23,5 +20,6 @@ main {
   }
   .enter {
     opacity: 1;
+    transition: all 0.8s;
   }
 }

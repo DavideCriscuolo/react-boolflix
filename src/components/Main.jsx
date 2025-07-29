@@ -2,6 +2,7 @@ import StarRatings from "react-star-ratings"; // libreria per le stelline
 import Flag from "react-world-flags"; // libreria per le bandiere
 import { useState } from "react";
 import HeaderC from "./HeaderC";
+import { Badge } from "react-bootstrap"; // libreria per badge
 export default function Main() {
   const api_key = import.meta.env.VITE_API_KEY;
   const [nameFilm, setNameFilm] = useState("");
@@ -51,7 +52,9 @@ export default function Main() {
           {film.map((film) => {
             return (
               <div key={film.id} className="col p-5 ">
-                <h4 className="">Film</h4>
+                <Badge bg="danger" className="fs-6">
+                  Film
+                </Badge>
                 <div className="card border-0 mb-3 h-100 p-3 justify-content-center">
                   <div className="row g-0">
                     <div className="col-md-6">
@@ -104,7 +107,9 @@ export default function Main() {
             {serTv.map((stv) => {
               return (
                 <div key={stv.id} className="col p-5 ">
-                  <h4 className="">Serie TV </h4>
+                  <Badge bg="success" className="fs-6">
+                    Serie Tv
+                  </Badge>
                   <div className="card border-0 mb-3 h-100 p-3 justify-content-center">
                     <div className="row g-0">
                       <div className="col-md-6">
