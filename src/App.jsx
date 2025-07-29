@@ -101,7 +101,7 @@ function App() {
             ></Flag>
             <StarRatings
               numberOfStars={5}
-              rating={film.vote_average / 2}
+              rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
               starRatedColor="gold"
               starDimension="24px"
               starSpacing="2px"
