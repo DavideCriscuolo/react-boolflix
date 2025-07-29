@@ -41,11 +41,16 @@ function App() {
         <button type="submit">Cerca</button>
       </form>
 
-      <ul>
-        {film.map((film) => {
-          return <li key={film.id}>{film.title}</li>;
-        })}
-      </ul>
+      {film.map((film) => {
+        return (
+          <ul key={film.id}>
+            <li>Titolo: {film.title} </li>
+            <li> Titolo Originale:{film.original_title}</li>
+            <li>Lingua: {film.original_language}</li>
+            <li>Voto: {film.vote_average}</li>
+          </ul>
+        );
+      })}
     </>
   );
 }
