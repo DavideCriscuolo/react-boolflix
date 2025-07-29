@@ -44,7 +44,7 @@ piene (o mezze vuote :P)
 
 
 */
-
+import StarRatings from "react-star-ratings"; // libreria per le stelline
 import Flag from "react-world-flags"; // libreria per le bandiere
 import { use, useEffect, useState } from "react";
 
@@ -99,16 +99,16 @@ function App() {
               code={film.original_language.toUpperCase()}
               style={{ width: 30, height: 20 }}
             ></Flag>
-            <ReactStars
-              count={5}
-              value={film.vote_average / 2}
-              size={24}
-              edit={false} // disabilita modifiche
-              isHalf={true}
-              activeColor="#ffd700"
+            <StarRatings
+              numberOfStars={5}
+              rating={film.vote_average / 2}
+              starRatedColor="gold"
+              starDimension="24px"
+              starSpacing="2px"
+              name="rating"
             >
               Voto:
-            </ReactStars>{" "}
+            </StarRatings>{" "}
             <li>
               <img
                 src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
