@@ -35,3 +35,6 @@ main {
     transition: all 0.8s;
   }
 }
+.pieno {
+  display: none;
+}

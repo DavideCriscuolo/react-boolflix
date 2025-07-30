@@ -48,6 +48,13 @@ export default function Main() {
       ></HeaderC>
       <main>
         <div className="container p-5"></div>
+        <h3
+          className={` text-center ${
+            film.length !== 0 && serTv.length !== 0 && "pieno"
+          }`}
+        >
+          Non hai cercato nessun Film / Serie Tv
+        </h3>
         <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-row-cols-xxl-6  w-100">
           {film.map((film) => {
             return (
@@ -98,17 +105,19 @@ export default function Main() {
                             style={{ width: 30, height: 20 }}
                           ></Flag>{" "}
                         </div>
-
-                        <StarRatings
-                          numberOfStars={5}
-                          rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
-                          starRatedColor="gold"
-                          starDimension="24px"
-                          starSpacing="2px"
-                          name="rating"
-                        >
-                          Voto:
-                        </StarRatings>
+                        <div>
+                          <strong>Voto: </strong>
+                          <StarRatings
+                            numberOfStars={5}
+                            rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
+                            starRatedColor="gold"
+                            starDimension="24px"
+                            starSpacing="2px"
+                            name="rating"
+                          >
+                            Voto:
+                          </StarRatings>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -158,16 +167,19 @@ export default function Main() {
                               style={{ width: 30, height: 20 }}
                             ></Flag>
                           </p>
-                          <StarRatings
-                            numberOfStars={5}
-                            rating={Math.round(stv.vote_average / 2)} //per arrotondare e non avere mezze stelle
-                            starRatedColor="gold"
-                            starDimension="24px"
-                            starSpacing="2px"
-                            name="rating"
-                          >
-                            Voto:
-                          </StarRatings>
+                          <div>
+                            <strong>Voto: </strong>
+                            <StarRatings
+                              numberOfStars={5}
+                              rating={Math.round(stv.vote_average / 2)} //per arrotondare e non avere mezze stelle
+                              starRatedColor="gold"
+                              starDimension="24px"
+                              starSpacing="2px"
+                              name="rating"
+                            >
+                              Voto:
+                            </StarRatings>
+                          </div>
                         </div>
                       </div>
                     </div>
