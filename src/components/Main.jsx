@@ -96,7 +96,11 @@ export default function Main() {
                       >
                         <h5 className="card-title">{film.title}</h5>
                         <div className="card-text">
-                          <p>
+                          <p
+                            className={`${
+                              film.title === film.original_title && "hidden" //nel caso il titolo originale fosse uguale a quello normale
+                            }`}
+                          >
                             {" "}
                             <strong>Titolo Originale: </strong>
                             {film.original_title}{" "}
