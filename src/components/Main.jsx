@@ -7,7 +7,6 @@ export default function Main() {
   const api_key = import.meta.env.VITE_API_KEY;
   const [nameFilm, setNameFilm] = useState("");
   const [film, setFilm] = useState([]);
-
   const [serTv, setSerTv] = useState([]);
   const [nameTv, setNameTv] = useState("");
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
@@ -37,6 +36,22 @@ export default function Main() {
         setSerTv(data.results);
       });
   }
+
+  const countryL = {
+    // Mappatura per far combaciare lingua e paese
+    en: "gb",
+    it: "it",
+    fr: "fr",
+    de: "de",
+    es: "es",
+    pt: "pt",
+    ru: "ru",
+    ja: "jp",
+    zh: "cn",
+    ko: "kr",
+    hi: "in",
+    ar: "ae",
+  };
 
   return (
     <>
@@ -68,7 +83,7 @@ export default function Main() {
                       <img
                         src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
                         className="img-fluid rounded"
-                        alt="Card title"
+                        alt="Poster Film"
                         onMouseEnter={() => setIsEnter(film.id)}
                         onMouseLeave={() => setIsEnter(null)}
                       />
@@ -95,15 +110,17 @@ export default function Main() {
                           </p>
                         </div>
                         <div>
-                          <p>
-                            {" "}
+                          <span>
                             <strong>Lingua: </strong>{" "}
+                          </span>
+                          <span className="mx-2">
+                            {" "}
                             {film.original_language.toUpperCase()}
-                          </p>{" "}
+                          </span>
                           <Flag
-                            code={film.original_language.toUpperCase()}
+                            code={countryL[film.original_language]}
                             style={{ width: 30, height: 20 }}
-                          ></Flag>{" "}
+                          ></Flag>
                         </div>
                         <div>
                           <strong>Voto: </strong>
@@ -141,7 +158,7 @@ export default function Main() {
                         <img
                           src={`https://image.tmdb.org/t/p/w342/${stv.poster_path}`}
                           className="img-fluid rounded"
-                          alt="Card title"
+                          alt="Poster Serie Tv"
                           onMouseEnter={() => setIsEnter(stv.id)}
                           onMouseLeave={() => setIsEnter(null)}
                         />
@@ -158,15 +175,20 @@ export default function Main() {
                               <strong>Trama: </strong> {stv.overview}
                             </p>
                           </div>
-                          <p>
-                            {" "}
-                            <strong>Lingua: </strong>{" "}
-                            {stv.original_language.toUpperCase()}
+                          <div>
+                            <span>
+                              <strong>Lingua: </strong>{" "}
+                            </span>
+                            <span className="mx-2">
+                              {" "}
+                              {stv.original_language.toUpperCase()}
+                            </span>
                             <Flag
-                              code={stv.original_language.toUpperCase()}
+                              code={countryL[stv.original_language]} // per far combaciare lingua e paese
                               style={{ width: 30, height: 20 }}
                             ></Flag>
-                          </p>
+                          </div>
+
                           <div>
                             <strong>Voto: </strong>
                             <StarRatings
