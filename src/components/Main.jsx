@@ -1,6 +1,6 @@
 import StarRatings from "react-star-ratings"; // libreria per le stelline
 import Flag from "react-world-flags"; // libreria per le bandiere
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import HeaderC from "./HeaderC";
 import { Badge } from "react-bootstrap"; // libreria per badge
 export default function Main() {
@@ -9,8 +9,9 @@ export default function Main() {
   const [film, setFilm] = useState([]);
   const [serTv, setSerTv] = useState([]);
   const [nameTv, setNameTv] = useState("");
+  const [casts, setCasts] = useState([]);
+  const [castsTv, setCastsTV] = useState([]);
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
-
   const urlTv = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${nameTv}`;
 
   function handleChange(e) {
@@ -53,6 +54,27 @@ export default function Main() {
     ar: "ae",
   };
 
+  function handleEnterId(id) {
+    const urlCastFilm = ` https://api.themoviedb.org/3/movie/${id}/casts?api_key=${api_key}`;
+    fetch(urlCastFilm)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.cast);
+        setCasts(data.cast);
+        console.log(urlCastFilm);
+      });
+  }
+
+  function handleEnterIdTV(id) {
+    const urlCastTv = `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${api_key}`;
+    fetch(urlCastTv)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.cast);
+        setCastsTV(data.cast);
+        console.log(urlCastTv);
+      });
+  }
   return (
     <>
       <HeaderC
@@ -84,8 +106,13 @@ export default function Main() {
                         src={`https://image.tmdb.org/t/p/w342/${film.poster_path}`}
                         className="img-fluid rounded"
                         alt="Poster Film"
-                        onMouseEnter={() => setIsEnter(film.id)}
-                        onMouseLeave={() => setIsEnter(null)}
+                        onMouseEnter={() => {
+                          setIsEnter(film.id);
+                          handleEnterId(film.id);
+                        }}
+                        onMouseLeave={() => {
+                          setIsEnter(null);
+                        }}
                       />
                     </div>
                     <div className="col-md-6">
@@ -139,6 +166,16 @@ export default function Main() {
                             Voto:
                           </StarRatings>
                         </div>
+
+                        <ul className="list-unstyled">
+                          <span>
+                            <strong>Cast:</strong>{" "}
+                          </span>
+                          {casts &&
+                            casts.slice(0, 5).map((cast) => {
+                              return <li key={cast.id}>{cast.name}</li>;
+                            })}
+                        </ul>
                       </div>
                     </div>
                   </div>
@@ -163,8 +200,13 @@ export default function Main() {
                           src={`https://image.tmdb.org/t/p/w342/${stv.poster_path}`}
                           className="img-fluid rounded"
                           alt="Poster Serie Tv"
-                          onMouseEnter={() => setIsEnter(stv.id)}
-                          onMouseLeave={() => setIsEnter(null)}
+                          onMouseEnter={() => {
+                            setIsEnter(stv.id);
+                            handleEnterIdTV(stv.id);
+                          }}
+                          onMouseLeave={() => {
+                            setIsEnter(null);
+                          }}
                         />
                       </div>
                       <div className="col-md-6">
@@ -216,6 +258,15 @@ export default function Main() {
                               Voto:
                             </StarRatings>
                           </div>
+                          <ul className="list-unstyled">
+                            <span>
+                              <strong>Cast:</strong>{" "}
+                            </span>
+                            {castsTv &&
+                              castsTv.slice(0, 5).map((cast) => {
+                                return <li key={cast.id}>{cast.name}</li>;
+                              })}
+                          </ul>
                         </div>
                       </div>
                     </div>
