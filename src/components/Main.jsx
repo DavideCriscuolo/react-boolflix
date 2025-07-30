@@ -175,8 +175,18 @@ export default function Main() {
                         >
                           <h5 className="card-title">{stv.name}</h5>
                           <div className="card-text">
+                            <p
+                              className={`${
+                                stv.name === stv.original_name && "hidden" //nel caso il titolo originale fosse uguale a quello normale
+                              }`}
+                            >
+                              {" "}
+                              <strong>Titolo Originale: </strong>
+                              {stv.original_name}{" "}
+                            </p>
                             <p>
-                              <strong>Trama: </strong> {stv.overview}
+                              <strong>Trama: </strong>{" "}
+                              {stv.overview.slice(0, 150)}
                             </p>
                           </div>
                           <div>
