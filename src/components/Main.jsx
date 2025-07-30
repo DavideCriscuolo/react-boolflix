@@ -11,6 +11,8 @@ export default function Main() {
   const [nameTv, setNameTv] = useState("");
   const [casts, setCasts] = useState([]);
   const [castsTv, setCastsTV] = useState([]);
+  const [geners, setGeners] = useState([]);
+
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${nameFilm}`;
   const urlTv = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${nameTv}`;
 
@@ -75,6 +77,18 @@ export default function Main() {
         console.log(urlCastTv);
       });
   }
+
+  function handleGenersMov(id) {
+    const urlGenerM = ` https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}`;
+    fetch(urlGenerM)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.genres);
+        setGeners(data.genres);
+        console.log(urlGenerM);
+      });
+  }
+
   return (
     <>
       <HeaderC
@@ -92,14 +106,14 @@ export default function Main() {
         >
           Non hai cercato nessun Film / Serie Tv
         </h3>
-        <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-row-cols-xxl-6  w-100">
+        <div className="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-4 row-row-cols-xxl-6  w-100">
           {film.map((film) => {
             return (
               <div key={film.id} className="col p-5 ">
                 <Badge bg="danger" className="fs-6">
                   Film
                 </Badge>
-                <div className="card border-0 mb-3 h-100 p-3 justify-content-center">
+                <div className="card border-0 mb-3 p-3 justify-content-center">
                   <div className="row g-0">
                     <div className="col-md-6">
                       <img
@@ -109,6 +123,7 @@ export default function Main() {
                         onMouseEnter={() => {
                           setIsEnter(film.id);
                           handleEnterId(film.id);
+                          handleGenersMov(film.id);
                         }}
                         onMouseLeave={() => {
                           setIsEnter(null);
@@ -123,7 +138,7 @@ export default function Main() {
                       >
                         <h5 className="card-title">{film.title}</h5>
                         <div className="card-text">
-                          <p
+                          <span
                             className={`${
                               film.title === film.original_title && "hidden" //nel caso il titolo originale fosse uguale a quello normale
                             }`}
@@ -131,14 +146,13 @@ export default function Main() {
                             {" "}
                             <strong>Titolo Originale: </strong>
                             {film.original_title}{" "}
-                          </p>
+                          </span>
                         </div>
                         <div className="card-text">
-                          <p>
-                            {" "}
+                          <h6>
                             <strong>Trama: </strong>
-                            {film.overview.slice(0, 150)}{" "}
-                          </p>
+                          </h6>
+                          <p> {film.overview.slice(0, 150)} </p>
                         </div>
                         <div>
                           <span>
@@ -167,15 +181,30 @@ export default function Main() {
                           </StarRatings>
                         </div>
 
+                        <span>
+                          <strong>Cast:</strong>{" "}
+                        </span>
                         <ul className="list-unstyled">
-                          <span>
-                            <strong>Cast:</strong>{" "}
-                          </span>
                           {casts &&
                             casts.slice(0, 5).map((cast) => {
                               return <li key={cast.id}>{cast.name}</li>;
                             })}
                         </ul>
+                        <div>
+                          <h6>
+                            {" "}
+                            <strong>Generi: </strong>
+                          </h6>
+                          <ul className="list-inline">
+                            {geners.map((gener) => {
+                              return (
+                                <li className="list-inline-item">
+                                  {gener.name}{" "}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -193,7 +222,7 @@ export default function Main() {
                   <Badge bg="success" className="fs-6">
                     Serie Tv
                   </Badge>
-                  <div className="card border-0 mb-3 h-100 p-3 justify-content-center">
+                  <div className="card border-0 mb-3  p-3 justify-content-center">
                     <div className="row g-0">
                       <div className="col-md-6">
                         <img
@@ -258,10 +287,10 @@ export default function Main() {
                               Voto:
                             </StarRatings>
                           </div>
+                          <span>
+                            <strong>Cast:</strong>{" "}
+                          </span>
                           <ul className="list-unstyled">
-                            <span>
-                              <strong>Cast:</strong>{" "}
-                            </span>
                             {castsTv &&
                               castsTv.slice(0, 5).map((cast) => {
                                 return <li key={cast.id}>{cast.name}</li>;
