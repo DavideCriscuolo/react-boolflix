@@ -72,17 +72,33 @@ export default function Main() {
                           isEnter === film.id && "enter"
                         }`}
                       >
-                        <h5 className="card-title">{film.original_title}</h5>
-                        <p className="card-text">
-                          Titolo Originale: {film.original_title}
-                        </p>
-                        <p className="card-text">
+                        <h5 className="card-title">{film.title}</h5>
+                        <div className="card-text">
+                          <p>
+                            {" "}
+                            <strong>Titolo Originale: </strong>
+                            {film.original_title}{" "}
+                          </p>
+                        </div>
+                        <div className="card-text">
+                          <p>
+                            {" "}
+                            <strong>Trama: </strong>
+                            {film.overview.slice(0, 150)}{" "}
+                          </p>
+                        </div>
+                        <div>
+                          <p>
+                            {" "}
+                            <strong>Lingua: </strong>{" "}
+                            {film.original_language.toUpperCase()}
+                          </p>{" "}
                           <Flag
                             code={film.original_language.toUpperCase()}
                             style={{ width: 30, height: 20 }}
-                          ></Flag>
-                        </p>
-                        <p> Lingua: {film.original_language.toUpperCase()}</p>
+                          ></Flag>{" "}
+                        </div>
+
                         <StarRatings
                           numberOfStars={5}
                           rating={Math.round(film.vote_average / 2)} //per arrotondare e non avere mezze stelle
@@ -128,13 +144,20 @@ export default function Main() {
                           }`}
                         >
                           <h5 className="card-title">{stv.name}</h5>
-                          <p className="card-text">
+                          <div className="card-text">
+                            <p>
+                              <strong>Trama: </strong> {stv.overview}
+                            </p>
+                          </div>
+                          <p>
+                            {" "}
+                            <strong>Lingua: </strong>{" "}
+                            {stv.original_language.toUpperCase()}
                             <Flag
                               code={stv.original_language.toUpperCase()}
                               style={{ width: 30, height: 20 }}
                             ></Flag>
                           </p>
-                          <p> Lingua: {stv.original_language.toUpperCase()}</p>
                           <StarRatings
                             numberOfStars={5}
                             rating={Math.round(stv.vote_average / 2)} //per arrotondare e non avere mezze stelle
