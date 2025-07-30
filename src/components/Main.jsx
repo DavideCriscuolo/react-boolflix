@@ -117,10 +117,16 @@ export default function Main() {
                           src={`https://image.tmdb.org/t/p/w342/${stv.poster_path}`}
                           className="img-fluid rounded"
                           alt="Card title"
+                          onMouseEnter={() => setIsEnter(stv.id)}
+                          onMouseLeave={() => setIsEnter(null)}
                         />
                       </div>
                       <div className="col-md-6">
-                        <div className="card-body">
+                        <div
+                          className={`card-body ${
+                            isEnter === stv.id && "enter"
+                          }`}
+                        >
                           <h5 className="card-title">{stv.name}</h5>
                           <p className="card-text">
                             <Flag
